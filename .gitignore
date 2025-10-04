@@ -1,0 +1,23 @@
+# Archivos específicos de macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Miniaturas
+._*
+
+# Archivos que pueden aparecer en la raíz de un volumen
+.Spotlight-V100
+.Trashes
+
+# Directorios creados en sistemas de archivos remotos
+__MACOSX
+
+# Archivos específicos de Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Visual Code
+.vscode/
