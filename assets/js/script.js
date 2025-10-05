@@ -73,7 +73,7 @@ function addNumber() {
       if (selectedCell) {
         selectedCell.textContent = buttonValue;
         selectedCell.setAttribute("value", buttonValue);
-        SelectedCell = null;
+        selectedCell = null;
       }
     });
   }
