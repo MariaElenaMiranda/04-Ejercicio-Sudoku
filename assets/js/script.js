@@ -3,6 +3,8 @@
 //Elementos DOM
 let boardContainer = document.getElementById('board-container');
 let buttonContainer = document.getElementById('button-container');
+
+//Variables
 let selectedCell = null;
 
 let board = ["--74916-5",
@@ -39,7 +41,7 @@ function createBoard() {
       cell.classList.add("cells");
       cell.tabIndex = 0;
       let numbers = board[i-1][j-1] === '-' ? '' : board[i-1][j-1];
-      cell.setAttribute("value", board[i-1][j-1]);
+      cell.setAttribute("value", numbers);
       cell.value = numbers;
       cell.textContent = numbers
       if(j === 3 || j === 6) {
@@ -86,25 +88,28 @@ function addNumber() {
   for (const button of buttons) {
     button.addEventListener("click", () => {
       let buttonValue = button.value;
-      if (selectedCell) {
-        selectedCell.textContent = buttonValue;
-        selectedCell.setAttribute("value", buttonValue);
+      selectedCell.textContent = buttonValue;
+      selectedCell.setAttribute("value", buttonValue);
+      if (validateSolution(selectedCell)) {
+        selectedCell.style.backgroundColor = "rgba(0, 128, 0, 0.3)";
+        selectedCell.removeAttribute("tabIndex");
         selectedCell = null;
+      } else {
+        selectedCell.style.backgroundColor = "rgba(255, 0, 0, 0.3)";
       }
     });
   }
 }
 
 //Función para validar solución
-function validateSolution(cell) {
-  for (let i = 1; i <= 9; i++) {
-    for (let j = 1; j <= 9; j++) {
-      if(cell[i][j] !== solution[i-1][j-1]) {
-        return false;
-      }
+function validateSolution(selectedCell) {
+  let selectedCellId = selectedCell.id;
+  const [row, col] = selectedCellId.split('-');
+    if(selectedCell.textContent !== solution[row-1][col-1]) {
+      return false;
     }
+    return true;
   }
-}
 
 
 window.onload = () => {
