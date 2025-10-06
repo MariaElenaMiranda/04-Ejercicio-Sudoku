@@ -96,14 +96,12 @@ function addNumber() {
 }
 
 //Función para validar solución
-function validateSolution(selectedCell) {
-  let cells = document.querySelectorAll(".cells");
-  for (let i = 0; i < cells.length; i++) {
-    for (let j = 0; j < cells[i].length; j++) {
-      if(cells[i][j].value === solution[i][j]) {
+function validateSolution(cell) {
+  for (let i = 1; i <= 9; i++) {
+    for (let j = 1; j <= 9; j++) {
+      if(cell[i][j] !== solution[i-1][j-1]) {
         return false;
       }
-        return false;
     }
   }
 }
