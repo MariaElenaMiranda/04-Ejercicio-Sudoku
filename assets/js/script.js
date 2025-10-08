@@ -65,7 +65,7 @@ function createButtons() {
     buttonContainer.appendChild(button);
   }
 }
-
+//hola
 //Función para marcar una casilla en el tablero
 function highlightCell() {
   const cells = document.querySelectorAll(".cells");
