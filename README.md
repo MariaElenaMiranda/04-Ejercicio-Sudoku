@@ -7,7 +7,7 @@ El objetivo es crear un juego de Sudoku completamente funcional utilizando tecno
 ## Características
 
 * **Tablero Interactivo**: Un tablero de 9x9 donde el usuario puede introducir números.
-* **Generación de Puzzles**: Lógica para crear un nuevo tablero de Sudoku al iniciar. (No implementado)
+* **Generación de Puzzles**: Lógica para crear un nuevo tablero de Sudoku al iniciar.
 * **Validación de Movimientos**: Comprobación en tiempo real de que los números introducidos cumplen las reglas del Sudoku (No implementado)
 * **Interfaz Limpia**: Un diseño sencillo y amigable para el usuario.
 
