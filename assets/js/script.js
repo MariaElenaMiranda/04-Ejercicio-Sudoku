@@ -93,6 +93,9 @@ function addNumber() {
       if (validateSolution(selectedCell)) {
         selectedCell.style.backgroundColor = "rgba(0, 128, 0, 0.3)";
         selectedCell.removeAttribute("tabIndex");
+        if(checkVictory()) {
+          alert("¡Has ganado 🥳!");
+        }
         selectedCell = null;
       } else {
         selectedCell.style.backgroundColor = "rgba(255, 0, 0, 0.3)";
@@ -111,6 +114,17 @@ function validateSolution(selectedCell) {
     return true;
   }
 
+//Función para comprobar la victoria
+function checkVictory() {
+  let allCells = document.querySelectorAll(".cells");
+  for (const cell of allCells) {
+    const [row, col] = cell.id.split('-');
+    if(cell.textContent !== solution[row-1][col-1]) {
+      return false;
+    }
+  }
+  return true
+}
 
 window.onload = () => {
   createBoard();
