@@ -72,6 +72,7 @@ function addNumber() {
   const buttons = document.querySelectorAll(".buttons");
   for (const button of buttons) {
     button.addEventListener("click", () => {
+      if (!selectedCell) return;
       let buttonValue = button.value;
       selectedCell.textContent = buttonValue;
       selectedCell.setAttribute("value", buttonValue);
