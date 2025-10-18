@@ -1,4 +1,5 @@
 'use strict';
+import { fetchPuzzle } from "../src/services/puzzleService.js";
 
 //Elementos DOM
 let boardContainer = document.getElementById('board-container');
@@ -7,27 +8,11 @@ let buttonContainer = document.getElementById('button-container');
 //Variables
 let selectedCell = null;
 
-let board = ["--74916-5",
-            "2---6-3-9",
-            "-----7-1-",
-            "-586----4",
-            "--3----9-",
-            "--62--187",
-            "9-4-7---2",
-            "67-83----",
-            "81--45---"]
+// Carga los datos del fetch y los asigna a las variables boardData y solutionData.
+const { board: boardData, solution: solutionData } = await fetchPuzzle();
 
-let solution = ["387491625",
-                "241568379",
-                "569327418",
-                "758619234",
-                "123784596",
-                "496253187",
-                "934176852",
-                "675832941",
-                "812945763"]
 
-//Función para elaboración del tablero en tiempo de ejecución
+// Función para la elaboración del tablero a partir de boardData.
 function createBoard() {
   for (let i = 1; i <= 9; i++) {
     const row = document.createElement("tr");
@@ -40,7 +25,7 @@ function createBoard() {
       cell.id = `${i}-${j}`;
       cell.classList.add("cells");
       cell.tabIndex = 0;
-      let numbers = board[i-1][j-1] === '-' ? '' : board[i-1][j-1];
+      let numbers = boardData[i-1][j-1] === '-' ? '' : boardData[i-1][j-1];
       cell.setAttribute("value", numbers);
       cell.value = numbers;
       cell.textContent = numbers
@@ -53,7 +38,7 @@ function createBoard() {
   }
 }
 
-//Función para elaboración de botones en tiempo de ejecución
+// Función para la elaboración de los botones (1-9) y los añade al contenedor.
 function createButtons() {
   for (let i = 1; i <= 9; i++) {
     const button = document.createElement("button");
@@ -66,7 +51,7 @@ function createButtons() {
   }
 }
 
-//Función para marcar una casilla en el tablero
+// Función para resaltar la celda seleccionada por el jugador.
 function highlightCell() {
   const cells = document.querySelectorAll(".cells");
   for (const cell of cells) {
@@ -82,7 +67,7 @@ function highlightCell() {
   }
 }
 
-//Función para agregar números al tablero
+// Función para agregar números a la celda seleccionada y validar la jugada.
 function addNumber() {
   const buttons = document.querySelectorAll(".buttons");
   for (const button of buttons) {
@@ -104,31 +89,36 @@ function addNumber() {
   }
 }
 
-//Función para validar solución
+// Función para validar si el número introducido es correcto.
 function validateSolution(selectedCell) {
   let selectedCellId = selectedCell.id;
   const [row, col] = selectedCellId.split('-');
-    if(selectedCell.textContent !== solution[row-1][col-1]) {
+    if(selectedCell.textContent !== solutionData[row-1][col-1]) {
       return false;
     }
     return true;
   }
 
-//Función para comprobar la victoria
+// Función para comprobar si se ha completado el tablero y determinar si el jugador ha ganado.
 function checkVictory() {
   let allCells = document.querySelectorAll(".cells");
   for (const cell of allCells) {
     const [row, col] = cell.id.split('-');
-    if(cell.textContent !== solution[row-1][col-1]) {
+    if(cell.textContent !== solutionData[row-1][col-1]) {
       return false;
     }
   }
   return true
 }
 
-window.onload = () => {
+// Función principal que inicia el juego.
+function main() {
   createBoard();
   createButtons();
   highlightCell();
   addNumber();
 }
+
+// Llama a la función main después de cargar los datos para evitar un error de "race condition"
+// que ocurría al usar window.onload.
+main();
