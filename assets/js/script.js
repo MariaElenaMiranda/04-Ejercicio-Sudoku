@@ -1,36 +1,13 @@
 'use strict';
+import { loadPuzzle } from '../../src/services/loadPuzzle.js';
 
-// Elementos del DOM
 let boardContainer = document.getElementById('board-container');
 let buttonContainer = document.getElementById('button-container');
 
-// Variables globales
 let selectedCell = null;
+let board = [];
+let solution = [];
 
-// Tablero inicial y solución
-let board = [
-  "--74916-5",
-  "2---6-3-9",
-  "-----7-1-",
-  "-586----4",
-  "--3----9-",
-  "--62--187",
-  "9-4-7---2",
-  "67-83----",
-  "81--45---"
-];
-
-let solution = [
-  "387491625",
-  "241568379",
-  "569327418",
-  "758619234",
-  "123784596",
-  "496253187",
-  "934176852",
-  "675832941",
-  "812945763"
-];
 
 // -------------------------------
 // Crear tablero dinámicamente
@@ -164,9 +141,18 @@ function addNumber() {
 // -------------------------------
 // Inicialización del juego
 // -------------------------------
-window.onload = () => {
-  createBoard();
-  createButtons();
-  highlightCell();
-  addNumber();
+window.onload = async () => {
+  try {
+    const data = await loadPuzzle();
+    board = data.board;
+    solution = data.solution;
+
+    createBoard();
+    createButtons();
+    highlightCell();
+    addNumber();
+  } catch (error) {
+    console.error('Error al cargar el puzzle:', error.message);
+  }
 };
+
